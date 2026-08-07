@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: taskflow-config
+  namespace: taskflow
+data:
+  REDIS_HOST: "taskflow-redis"
+  REDIS_PORT: "6379"
+  TASKFLOW_QUEUE_KEY: "taskflow:queue"
+  AWS_REGION: "us-east-1"
+  # S3_RESULT_BUCKET is intentionally left out of plain-text config; set it
+  # via a Secret or your CI/CD pipeline if you enable S3 result uploads.
