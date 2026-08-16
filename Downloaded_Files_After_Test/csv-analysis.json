@@ -1,0 +1,90 @@
+{
+  "job": "analyze-csv",
+  "rows_processed": 891,
+  "columns": [
+    "PassengerId",
+    "Survived",
+    "Pclass",
+    "Name",
+    "Sex",
+    "Age",
+    "SibSp",
+    "Parch",
+    "Ticket",
+    "Fare",
+    "Cabin",
+    "Embarked"
+  ],
+  "missing_values": {
+    "PassengerId": 0,
+    "Survived": 0,
+    "Pclass": 0,
+    "Name": 0,
+    "Sex": 0,
+    "Age": 177,
+    "SibSp": 0,
+    "Parch": 0,
+    "Ticket": 0,
+    "Fare": 0,
+    "Cabin": 687,
+    "Embarked": 2
+  },
+  "numeric_summary": {
+    "PassengerId": {
+      "count": 891,
+      "min": 1.0,
+      "max": 891.0,
+      "sum": 397386.0,
+      "average": 446.0
+    },
+    "Survived": {
+      "count": 891,
+      "min": 0.0,
+      "max": 1.0,
+      "sum": 342.0,
+      "average": 0.3838383838383838
+    },
+    "Pclass": {
+      "count": 891,
+      "min": 1.0,
+      "max": 3.0,
+      "sum": 2057.0,
+      "average": 2.308641975308642
+    },
+    "Age": {
+      "count": 714,
+      "min": 0.42,
+      "max": 80.0,
+      "sum": 21205.17,
+      "average": 29.69911764705882
+    },
+    "SibSp": {
+      "count": 891,
+      "min": 0.0,
+      "max": 8.0,
+      "sum": 466.0,
+      "average": 0.5230078563411896
+    },
+    "Parch": {
+      "count": 891,
+      "min": 0.0,
+      "max": 6.0,
+      "sum": 340.0,
+      "average": 0.38159371492704824
+    },
+    "Ticket": {
+      "count": 661,
+      "min": 693.0,
+      "max": 3101298.0,
+      "sum": 172070561.0,
+      "average": 260318.54916792738
+    },
+    "Fare": {
+      "count": 891,
+      "min": 0.0,
+      "max": 512.3292,
+      "sum": 28693.9493,
+      "average": 32.204207968574636
+    }
+  }
+}
