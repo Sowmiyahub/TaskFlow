@@ -276,6 +276,139 @@ Tested locally with Docker Compose.
 - [x] Invalid task failed after three retry attempts
 - [x] Monitoring dashboard was added
 
+````markdown
+## Performance & Scalability
+
+TaskFlow was load-tested by submitting **100 `analyze-csv` tasks** through the Dockerized API, Redis queue, and worker services.
+
+### Load Test Setup
+
+#### 1. Start with 1 Worker
+
+```bash
+docker compose up --scale worker=1 -d
+````
+
+Verify the running services:
+
+```bash
+docker compose ps
+```
+
+Expected services:
+
+```text
+taskflow-api-1       Up (healthy)
+taskflow-redis-1     Up (healthy)
+taskflow-worker-1    Up
+```
+
+#### 2. Run the Load Test
+
+```bash
+python .\Loadtest_real.py
+```
+
+Output:
+
+```text
+Submitting 100 analyze-csv tasks...
+All 100 tasks submitted in 0.47s
+
+--- RESULTS ---
+Total tasks: 100
+Completed: 100
+Failed: 0
+Timed out: 0
+Total wall time: 1.72s
+Throughput: 58.14 tasks/sec
+Avg time-to-completion: 0.12s
+p95 time-to-completion: 0.27s
+```
+
+### 3. Scale to 5 Workers
+
+```bash
+docker compose up --scale worker=5 -d
+```
+
+Verify all worker instances:
+
+```bash
+docker compose ps
+```
+
+The system successfully started:
+
+```text
+taskflow-api-1
+taskflow-redis-1
+taskflow-worker-1
+taskflow-worker-2
+taskflow-worker-3
+taskflow-worker-4
+taskflow-worker-5
+```
+
+### 4. Run the Same Load Test with 5 Workers
+
+```bash
+python .\Loadtest_real.py
+```
+
+Output:
+
+```text
+Submitting 100 analyze-csv tasks...
+All 100 tasks submitted in 0.52s
+
+--- RESULTS ---
+Total tasks: 100
+Completed: 100
+Failed: 0
+Timed out: 0
+Total wall time: 0.82s
+Throughput: 121.93 tasks/sec
+Avg time-to-completion: 0.03s
+p95 time-to-completion: 0.04s
+```
+
+### Performance Comparison
+
+| Metric                  |        1 Worker |        5 Workers |      Improvement |
+| ----------------------- | --------------: | ---------------: | ---------------: |
+| Total Tasks             |             100 |              100 |                — |
+| Completed               |             100 |              100 |                — |
+| Failed                  |               0 |                0 |                — |
+| Timed Out               |               0 |                0 |                — |
+| Total Wall Time         |           1.72s |            0.82s | **52.3% faster** |
+| Throughput              | 58.14 tasks/sec | 121.93 tasks/sec |         **2.1×** |
+| Avg. Time-to-Completion |           0.12s |            0.03s |    **75% lower** |
+| p95 Time-to-Completion  |           0.27s |            0.04s |    **85% lower** |
+
+### Key Results
+
+* **52.3% reduction in total processing time** — 1.72s → 0.82s
+* **2.1× throughput improvement** — 58.14 → 121.93 tasks/sec
+* **75% reduction in average task completion time** — 0.12s → 0.03s
+* **85% reduction in p95 completion time** — 0.27s → 0.04s
+* **100% task completion** with 0 failures and 0 timeouts
+* Successfully scaled the worker pool from **1 → 5 Docker containers**
+
+### Scaling Insight
+
+The workload is computationally lightweight, so scaling from 1 to 5 workers does not produce a linear 5× speedup.
+
+The observed **2.1× throughput improvement** demonstrates that additional workers improve parallel task processing, while the overall speedup is bounded by the relatively small execution time of each individual task.
+
+This provides a realistic scalability result rather than an artificially inflated benchmark.
+
+````
+
+The results and commands are based directly on actual load-test runs: 1 worker produced **1.72s / 58.14 tasks/sec**, while 5 workers produced **0.82s / 121.93 tasks/sec**, with 100/100 tasks completed in both runs. :contentReference[oaicite:0]{index=0}
+
+For the 5-worker run, Docker output confirms workers 1–5 were running before the second benchmark. :contentReference[oaicite:1]{index=1}
+
 ## Real-World Use Cases
 
 TaskFlow can be adapted for:
