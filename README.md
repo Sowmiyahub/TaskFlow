@@ -15,7 +15,6 @@ For example, if a user uploads a large sales CSV and the API immediately tries t
 
 TaskFlow separates task submission from task processing.
 
-```text
 User uploads CSV
       ↓
 API accepts the task quickly
@@ -251,12 +250,15 @@ The dashboard shows:
 - Retry attempts
 - Recent task errors
 
+<img src="ScreenShots/Dashboard.png" alt="TaskFlow Dashboard" width="800"/>
+
 Metrics are also available at:
 
 ```text
 http://localhost:8080/metrics
 ```
 
+<img src="ScreenShots/metric.png" alt="TaskFlow Dashboard" width="800"/>
 ## Testing Evidence
 
 Tested locally with Docker Compose.
