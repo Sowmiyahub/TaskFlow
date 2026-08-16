@@ -408,7 +408,7 @@ This provides a realistic scalability result rather than an artificially inflate
 The results and commands are based directly on actual load-test runs: 1 worker produced **1.72s / 58.14 tasks/sec**, while 5 workers produced **0.82s / 121.93 tasks/sec**, with 100/100 tasks completed in both runs. :contentReference[oaicite:0]{index=0}
 
 For the 5-worker run, Docker output confirms workers 1–5 were running before the second benchmark. :contentReference[oaicite:1]{index=1}
-
+````
 ## Real-World Use Cases
 
 TaskFlow can be adapted for:
